@@ -10,6 +10,7 @@ PY3 = sys.version_info[0] == 3
 
 if PY3:
     from io import StringIO
+    from io import BytesIO
     basestring = str
 else:
     from StringIO import StringIO
@@ -1173,7 +1174,7 @@ class ChunkedUploader(object):
 
             try:
                 (self.offset, self.upload_id) = self.client.upload_chunk(
-                    StringIO(self.last_block), next_chunk_size, self.offset, self.upload_id)
+                    BytesIO(self.last_block), next_chunk_size, self.offset, self.upload_id)
                 self.last_block = None
             except ErrorResponse as e:
                 # Handle the case where the server tells us our offset is wrong.
